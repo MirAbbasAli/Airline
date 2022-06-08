@@ -1,0 +1,14 @@
+create database `payment_db`;
+use `payment_db`;
+DROP TABLE IF EXISTS `creditcard_details`;
+CREATE TABLE `creditcard_details` (
+  `card_number` varchar(255) NOT NULL,
+  `apin` varchar(255) DEFAULT NULL,
+  `card_holder_name` varchar(255) DEFAULT NULL,
+  `cvv` varchar(255) DEFAULT NULL,
+  `expiry_month` varchar(255) DEFAULT NULL,
+  `expiry_year` varchar(255) DEFAULT NULL,
+  `total_bill` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`card_number`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+INSERT INTO `creditcard_details` VALUES ('1234567891234567','123456','Bob','235','Jan','2020',40000);

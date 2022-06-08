@@ -1,0 +1,31 @@
+create database `book_flights_db`;
+use `book_flights_db`;
+DROP TABLE IF EXISTS `ticket_details`;
+
+CREATE TABLE `ticket_details` (
+  `pnr` int(11) NOT NULL,
+  `booking_date` date DEFAULT NULL,
+  `departure_date` date DEFAULT NULL,
+  `departure_time` varchar(255) DEFAULT NULL,
+  `flight_id` varchar(255) DEFAULT NULL,
+  `no_of_seats` int(11) NOT NULL,
+  `total_fare` double NOT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pnr`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `ticket_details` VALUES(1608294,'2019-03-05','2019-03-05','20:00','F101',1,40000,'Greg');
+
+DROP TABLE IF EXISTS `passenger_details`;
+
+CREATE TABLE `passenger_details` (
+  `passenger_id` int(11) NOT NULL AUTO_INCREMENT,
+  `passenger_age` varchar(255) DEFAULT NULL,
+  `passenger_gender` varchar(255) DEFAULT NULL,
+  `passenger_name` varchar(255) DEFAULT NULL,
+  `ticket_pnr` int(11) DEFAULT NULL,
+  PRIMARY KEY (`passenger_id`),
+  KEY `FKlcjup2fi5sgce4lvo0mwoou1e` (`ticket_pnr`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `passenger_details` VALUES(105,'30','Male','Bob',1608294);

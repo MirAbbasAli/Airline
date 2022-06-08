@@ -1,0 +1,16 @@
+create database user_details_db;
+use user_details_db;
+
+drop table if exists `user_details`;
+
+create table `user_details`(
+	`user_id` varchar(255) not null,
+	`city` varchar(255) default null,
+	`email` varchar(255) default null,
+	`name` varchar(255) default null,
+	`password` varchar(255) default null,
+	`phone` varchar(255) default null,
+	primary key (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `user_details` VALUES ('Greg','LA','greg@dmail.com','Greg K','Greg^InfyGo','8765421906');
