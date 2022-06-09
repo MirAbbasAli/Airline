@@ -1,8 +1,12 @@
 package com.airline.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,16 +28,23 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 	
+	@Autowired
+	private DiscoveryClient client;
+	
 	@PostMapping("/{flightId}/{username}")
 	public ResponseEntity<BookingDetails> bookFlight(@PathVariable("flightId") String flightId,
 			@Valid @RequestBody PassengerDetails passengerDetails,
 			@PathVariable("username")String username) throws AirlineServiceException{
 		
+		List<ServiceInstance> flightInstances=client.getInstances("SearchFlightMS");
+		String flightUri=null;
+		if(flightInstances!=null && !flightInstances.isEmpty())
+			flightUri=flightInstances.get(0).getUri().toString();
 		// call get Flight API
-		FlightDTO flight=new RestTemplate().getForObject("http://localhost:9400/flights/"+flightId, FlightDTO.class);
+		FlightDTO flight=new RestTemplate().getForObject(flightUri+"/flights/"+flightId, FlightDTO.class);
 		BookingDetails bookingDetails=bookingService.createBooking(flightId, passengerDetails, username, flight);
 		int noOfSeats=bookingDetails.getPassengerList().size();
-		new RestTemplate().put("http://localhost:9400/flights/"+flightId+"/"+noOfSeats, null);
+		new RestTemplate().put(flightUri+"/flights/"+flightId+"/"+noOfSeats, null);
 		return new ResponseEntity<>(bookingDetails, HttpStatus.OK);
 	}
 	
