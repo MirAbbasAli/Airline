@@ -16,7 +16,7 @@ spring:
    - id: SearchFlightMS
      uri: lb://SearchFlightMS
      predicates:
-      - Path=/flights/{segment},/flights/sources,/flights/destinations,/flights/{segment1}/{segment2}/{segment3}
+      - Path=/flights/{segment},/flights/sources,/flights/destinations,/flights/{segment1}/{segment2}/{segment3},/flights/{segment1}/{segment2}
    - id: BookFlightsMS
      uri: lb://BookFlightsMS
      predicates:
