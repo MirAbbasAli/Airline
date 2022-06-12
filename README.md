@@ -20,7 +20,7 @@ Airline customers can book their air tickets at an affordable price following si
 
 #### User Login
 
-```http
+```
   POST /login
 ```
 
