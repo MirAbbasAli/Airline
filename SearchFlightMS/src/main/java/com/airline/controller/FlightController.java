@@ -36,8 +36,6 @@ public class FlightController {
 	
 	@GetMapping("/{flightId}")
 	public SearchFlights getFlights(@PathVariable("flightId") String flightId) throws AirlineServiceException {
-		if(flightId.equals("F101"))
-			throw new RuntimeException();
 		System.out.println("flight id" + flightId);
 		return flightService.getFlights(flightId);
 	}

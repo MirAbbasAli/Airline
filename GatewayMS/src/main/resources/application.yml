@@ -1,0 +1,23 @@
+spring:
+ cloud:
+  gateway:
+   discovery:
+    locator:
+     enabled: true
+   routes:
+   - id: UserDetailsMS
+     uri: lb://UserDetailsMS
+     predicates:
+      - Path=/register,/login
+   - id: PaymentMS
+     uri: lb://PaymentMS
+     predicates:
+      - Path=/payment,/save-card
+   - id: SearchFlightMS
+     uri: lb://SearchFlightMS
+     predicates:
+      - Path=/flights/{segment},/flights/sources,/flights/destinations,/flights/{segment1}/{segment2}/{segment3}
+   - id: BookFlightsMS
+     uri: lb://BookFlightsMS
+     predicates:
+      - Path=/book/{segment1}/{segment2}
